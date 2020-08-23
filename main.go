@@ -21,13 +21,13 @@ type pattern struct {
 
 func main() {
 	var saveMode bool
-	flag.BoolVar(&saveMode, "save", false, "save a pattern (e.g: gf -save pat-name -Hnri 'search-pattern')")
+	flag.BoolVar(&saveMode, "save", false, "save a pattern (e.g: jf -save pat-name -r '.query')")
 
 	var listMode bool
 	flag.BoolVar(&listMode, "list", false, "list available patterns")
 
 	var dumpMode bool
-	flag.BoolVar(&dumpMode, "dump", false, "prints the grep command rather than executing it")
+	flag.BoolVar(&dumpMode, "dump", false, "prints the jq command rather than executing it")
 
 	flag.Parse()
 
@@ -90,15 +90,15 @@ func main() {
 			return
 		}
 
-		pat.Pattern = "(" + strings.Join(pat.Patterns, "|") + ")"
+		pat.Pattern = "" + strings.Join(pat.Patterns, "") + ""
 	}
 
 	if dumpMode {
-		fmt.Printf("grep %v %q %v\n", pat.Flags, pat.Pattern, files)
+		fmt.Printf("jq %v %q %v\n", pat.Flags, pat.Pattern, files)
 
 	} else {
 		var cmd *exec.Cmd
-		operator := "grep"
+		operator := "jq"
 		if pat.Engine != "" {
 			operator = pat.Engine
 		}
@@ -121,12 +121,12 @@ func getPatternDir() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	path := filepath.Join(usr.HomeDir, ".config/gf")
+	path := filepath.Join(usr.HomeDir, ".config/jf")
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
-		// .config/gf exists
+		// .config/jf exists
 		return path, nil
 	}
-	return filepath.Join(usr.HomeDir, ".gf"), nil
+	return filepath.Join(usr.HomeDir, ".jf"), nil
 }
 
 func savePattern(name, flags, pat string) error {
