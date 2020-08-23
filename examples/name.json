@@ -1,4 +1,4 @@
 {
     "flags": "-r",
-    "pattern": ".ip"
+    "pattern": ".name"
 }

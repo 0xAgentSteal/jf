@@ -1,0 +1,4 @@
+{
+    "flags": "-r",
+    "pattern": ".asn.route"
+}
