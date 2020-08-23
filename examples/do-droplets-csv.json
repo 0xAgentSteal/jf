@@ -1,0 +1,4 @@
+{
+    "flags": "-r",
+    "pattern": ".[] | [.name, .networks.v4[].ip_address, .memory, .region.slug, .image.name] | @csv"
+}

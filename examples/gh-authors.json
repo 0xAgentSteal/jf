@@ -1,0 +1,4 @@
+{
+    "flags": "-c",
+    "pattern": ".[].commit.author"
+}
